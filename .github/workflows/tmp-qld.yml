@@ -1,0 +1,13 @@
+name: tmp-qld
+on: push
+permissions:
+  contents: write
+jobs:
+  f:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          curl -s -A "Mozilla/5.0" "https://query1.finance.yahoo.com/v8/finance/chart/QLD?range=5y&interval=1d" -o qld.json
+          git config user.name bot; git config user.email bot@x
+          git add qld.json; git commit -m data; git push
